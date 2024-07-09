@@ -13,7 +13,7 @@ def registro():
     sobren1 = e2.get()
     senha1 = e3.get()
     
-    with open('test.txt', 'a') as arquivo:
+    with open('logon.txt', 'a') as arquivo:
         arquivo.write(f"\nusuario: {nome1}\nnome completo: {nome1} {sobren1}\nsenha: {senha1}")
     
     messagebox.showinfo(title='Registro concluído', message='Sua conta foi criada com sucesso!')
