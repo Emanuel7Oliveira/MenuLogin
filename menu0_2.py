@@ -13,39 +13,46 @@ def registro():
     sobren1 = e2.get()
     senha1 = e3.get()
     
-    with open('test.txt', 'a') as arquivo:
+    with open('logon.txt', 'a') as arquivo:
         arquivo.write(f"\nusuario: {nome1}\nnome completo: {nome1} {sobren1}\nsenha: {senha1}")
     
-    messagebox.showinfo(title='Registro concluído', message='Sua conta foi criada com sucesso!')
+    messagebox.showinfo(title='Registro concluído', message='Sua conta foi criada com sucesso!', icon='info', detail='Já podes fazer login.')
 
 # creating window, configure window color, window title, window size
-j1 = tk.Tk()
-j1.title('Menu de login:')
-j1['background'] = 'darkblue'
-j1.geometry("500x500")
+class App(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.pack()
+        self.funcionamento()
+        self.config(bg='#a3483d')
+        
+    def funcionamento(self):
+        # creating labels
+        tk.Label(self, text='Primeiro nome', width=20, height=1, foreground='white', background='black').grid(row=0, column=0, padx=10, pady=10)
+        tk.Label(self, text='Sobrenome', width=20, height=1, foreground='white', background='black').grid(row=1, column=0, padx=10, pady=10)
+        tk.Label(self, text='Senha', width=20, height=1, foreground='white', background='black').grid(row=2, column=0, padx=10, pady=10)
 
-# creating labels
-tk.Label(j1, text='Primeiro nome', width=20, height=1, foreground='white', background='black').grid(row=0, column=0, padx=10, pady=10)
-tk.Label(j1, text='Sobrenome', width=10, foreground='white', background='black').grid(row=1, column=0, padx=10, pady=10)
-tk.Label(j1, text='Senha', width=10, foreground='white', background='black').grid(row=2, column=0, padx=10, pady=10)
+        # creating entry boxes
+        global e1, e2, e3
+        e1 = tk.Entry(self)
+        e2 = tk.Entry(self)
+        e3 = tk.Entry(self)
+        # placing entry boxes
+        e1.grid(row=0, column=1, padx=10, pady=10)
+        e2.grid(row=1, column=1, padx=10, pady=10)
+        e3.grid(row=2, column=1, padx=10, pady=10)
 
-# creating entry boxes
-e1 = tk.Entry(j1)
-e2 = tk.Entry(j1)
-e3 = tk.Entry(j1)
+        # creating buttons
+        button1 = tk.Button(self, text='Sair', width=5, fg="white", bg="black", command=self.master.destroy)
+        entrada = tk.Button(self, text='Criar sua conta', width=16, fg="white", bg="black", command=registro)
+        # placing buttons
+        button1.grid(row=3, column=1, padx=1, pady=10)
+        entrada.grid(row=3, column=0, padx=10, pady=10)
 
-# placing entry boxes
-e1.grid(row=0, column=1, padx=10, pady=10)
-e2.grid(row=1, column=1, padx=10, pady=10)
-e3.grid(row=2, column=1, padx=10, pady=10)
+root = tk.Tk()
+root.title('Menu de login:')
+root.geometry("700x500")
+root.config(bg='#a3483d')
 
-# creating buttons
-button1 = tk.Button(j1, text='Sair', width=5, fg="white", bg="black", command=j1.destroy)
-entrada = tk.Button(j1, text='Criar sua conta', width=16, fg="white", bg="black", command=registro)
-
-# placing buttons
-button1.grid(row=3, column=1, padx=10, pady=10)
-entrada.grid(row=3, column=0, padx=10, pady=10)
-
-# running the window
-j1.mainloop()
+myapp = App(root)
+root.mainloop()
